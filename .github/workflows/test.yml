@@ -1,0 +1,71 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16]
+
+    steps:
+      # Step 1: Checkout the code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      # Step 3: Install dependencies for the server
+      - name: Install server dependencies
+        working-directory: ./server
+        run: npm install
+
+      # Step 4: Run Jest tests for the server
+      - name: Run server tests (Jest)
+        working-directory: ./server
+        run: npm test -- --ci --coverage
+
+      # Step 5: Install dependencies for the client
+      - name: Install client dependencies
+        working-directory: ./client
+        run: npm install
+
+      # Step 6: Install Playwright browsers
+      - name: Install Playwright browsers
+        working-directory: ./client
+        run: npx playwright install
+
+      # Step 7: Run Playwright tests for the client
+      - name: Run client tests (Playwright)
+        working-directory: ./client
+        run: npm run test
+        env:
+          CI: true
+
+      # Step 8: Upload Jest coverage report
+      - name: Upload Jest coverage
+        if: success()
+        uses: actions/upload-artifact@v3
+        with:
+          name: jest-coverage
+          path: ./server/coverage
+
+      # Step 9: Upload Playwright artifacts
+      - name: Upload Playwright artifacts
+        if: failure() # Only upload on failure
+        uses: actions/upload-artifact@v3
+        with:
+          name: playwright-artifacts
+          path: ./client/playwright-report

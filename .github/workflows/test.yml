@@ -61,9 +61,9 @@ jobs:
         env:
           REACT_APP_API_URL: http://localhost:5000
 
-      # Step 9: Wait for frontend to be ready
-      - name: Wait for frontend to be ready
-        run: npx wait-on http://localhost:3000 --timeout 30000
+      # # Step 9: Wait for frontend to be ready
+      # - name: Wait for frontend to be ready
+      #   run: npx wait-on http://localhost:3000 --timeout 30000
 
       # Step 10: Run Playwright tests for the client
       - name: Run client tests (Playwright)

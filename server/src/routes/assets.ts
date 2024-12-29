@@ -5,7 +5,6 @@ const router = Router();
 
 let assets: asset[] = [];
 
-// Default data for testing
 assets = [
   { id: '1', name: 'House', price: 500000, currency: '€' },
   { id: '2', name: 'Painting', price: 3000, currency: '€' },

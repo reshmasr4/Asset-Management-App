@@ -17,7 +17,7 @@ interface asset {
   id: string;
   name: string;
   price: number;
-  currency: string; // Added currency field
+  currency: string;
 }
 
 const AssetList: React.FC = () => {
@@ -50,7 +50,7 @@ const AssetList: React.FC = () => {
         setAssets((prev) =>
           prev.map((asset) => (asset.id === id ? response.data : asset))
         );
-        setEditingAssetId(null); // Close the edit form
+        setEditingAssetId(null);
       })
       .catch((error) => {
         console.error('Error updating asset:', error.message);
@@ -75,10 +75,8 @@ const AssetList: React.FC = () => {
       </AppBar>
       <Toolbar />
 
-      {/* Asset Form */}
       <AssetForm onAssetAdded={handleAssetAdded} />
 
-      {/* Asset List */}
       <Box sx={{ marginY: 4 }}>
         <Grid container spacing={2}>
           {assets.map((asset) => (

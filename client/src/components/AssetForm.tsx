@@ -18,11 +18,11 @@ interface asset {
   id: string;
   name: string;
   price: number;
-  currency: '€'; // New property for currency
+  currency: '€';
 }
 
 const AssetForm: React.FC<AssetFormProps> = ({ onAssetAdded }) => {
-  const [open, setOpen] = useState(false); // Controls modal visibility
+  const [open, setOpen] = useState(false);
   const [name, setName] = useState('');
   const [price, setPrice] = useState<number | ''>('');
 
@@ -48,7 +48,7 @@ const AssetForm: React.FC<AssetFormProps> = ({ onAssetAdded }) => {
         onAssetAdded(response.data);
         setName('');
         setPrice('');
-        handleClose(); // Close modal after submission
+        handleClose();
       })
       .catch((error) => {
         console.error('Error adding asset:', error.message);
@@ -57,7 +57,6 @@ const AssetForm: React.FC<AssetFormProps> = ({ onAssetAdded }) => {
 
   return (
     <>
-      {/* Add Asset Button */}
       <Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 2 }}>
         <Button
           variant="contained"
@@ -68,7 +67,6 @@ const AssetForm: React.FC<AssetFormProps> = ({ onAssetAdded }) => {
         </Button>
       </Box>
 
-      {/* Add Asset Dialog */}
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Add New Asset</DialogTitle>
         <DialogContent>

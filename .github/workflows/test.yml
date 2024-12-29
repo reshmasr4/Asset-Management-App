@@ -14,7 +14,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [16]
+        node-version: [18]
 
     steps:
       # Step 1: Checkout the code
@@ -27,7 +27,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      # Step 3: Install dependencies for the server
+      # Step 3: Install server dependencies
       - name: Install server dependencies
         working-directory: ./server
         run: npm install
@@ -37,7 +37,7 @@ jobs:
         working-directory: ./server
         run: npm test -- --ci --coverage
 
-      # Step 5: Install dependencies for the client
+      # Step 5: Install client dependencies
       - name: Install client dependencies
         working-directory: ./client
         run: npm install
@@ -47,14 +47,32 @@ jobs:
         working-directory: ./client
         run: npx playwright install
 
-      # Step 7: Run Playwright tests for the client
+      # Step 7: Start backend server
+      - name: Start backend server
+        working-directory: ./server
+        run: npm start &
+        env:
+          PORT: 5000
+
+      # Step 8: Start frontend server
+      - name: Start frontend server
+        working-directory: ./client
+        run: npm start &
+        env:
+          REACT_APP_API_URL: http://localhost:5000
+
+      # Step 9: Wait for frontend to be ready
+      - name: Wait for frontend to be ready
+        run: npx wait-on http://localhost:3000
+
+      # Step 10: Run Playwright tests for the client
       - name: Run client tests (Playwright)
         working-directory: ./client
-        run: npm run test
+        run: npm run test:e2e
         env:
           CI: true
 
-      # Step 8: Upload Jest coverage report
+      # Step 11: Upload Jest coverage report
       - name: Upload Jest coverage
         if: success()
         uses: actions/upload-artifact@v3
@@ -62,7 +80,7 @@ jobs:
           name: jest-coverage
           path: ./server/coverage
 
-      # Step 9: Upload Playwright artifacts
+      # Step 12: Upload Playwright artifacts
       - name: Upload Playwright artifacts
         if: failure() # Only upload on failure
         uses: actions/upload-artifact@v3

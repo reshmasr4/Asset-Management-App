@@ -14,7 +14,9 @@
   "scripts": {
     "start": "react-scripts start --no-client-overlay",
     "build": "react-scripts build",
-    "test": "playwright test --reporter=html"
+    "test": "playwright test --reporter=html",
+    "lint": "eslint \"src/**/*.{ts,tsx}\"",
+    "lint:fix": "eslint \"src/**/*.{ts,tsx}\" --fix"
   },
   "eslintConfig": {
     "extends": [
@@ -39,6 +41,8 @@
     "@types/node": "^22.10.2",
     "@types/react": "18.0.30",
     "@types/react-dom": "18.0.11",
+    "@typescript-eslint/parser": "^8.18.2",
+    "eslint": "^8.57.1",
     "playwright": "^1.49.1",
     "prop-types": "^15.8.1",
     "ts-node": "^10.9.2",

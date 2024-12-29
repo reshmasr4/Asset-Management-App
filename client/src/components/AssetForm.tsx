@@ -9,6 +9,7 @@ import {
   TextField,
   Box,
 } from '@mui/material';
+import { validatePrice } from '../utils/validation';
 
 interface AssetFormProps {
   onAssetAdded: (asset: asset) => void;
@@ -25,9 +26,18 @@ const AssetForm: React.FC<AssetFormProps> = ({ onAssetAdded }) => {
   const [open, setOpen] = useState(false);
   const [name, setName] = useState('');
   const [price, setPrice] = useState<number | ''>('');
+  const [priceError, setPriceError] = useState<string | null>(null);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+
+  const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setPrice(value === '' ? '' : Number(value));
+    const error = validatePrice(value);
+    setPriceError(error);
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -82,7 +92,6 @@ const AssetForm: React.FC<AssetFormProps> = ({ onAssetAdded }) => {
           >
             <TextField
               label="Asset Name"
-              id="assetNameInput"
               variant="outlined"
               value={name}
               onChange={(e) => setName(e.target.value)}
@@ -93,7 +102,9 @@ const AssetForm: React.FC<AssetFormProps> = ({ onAssetAdded }) => {
               variant="outlined"
               type="number"
               value={price}
-              onChange={(e) => setPrice(e.target.value === '' ? '' : Number(e.target.value))}
+              onChange={handlePriceChange}
+              error={!!priceError}
+              helperText={priceError} 
               required
             />
           </Box>

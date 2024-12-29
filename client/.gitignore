@@ -1,0 +1,34 @@
+# Ignore node_modules
+node_modules/
+
+# Ignore test results and coverage
+test-results/
+coverage/
+
+# Ignore build files
+dist/
+build/
+
+# Ignore Playwright artifacts
+playwright-report/
+*.trace
+*.png
+
+# Ignore environment files
+.env
+.env.local
+.env.development
+.env.production
+
+# Ignore log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Ignore lock files if not needed
+package-lock.json
+

@@ -1,0 +1,24 @@
+# Node modules
+node_modules/
+
+# Build output
+dist/
+
+# Environment files
+.env
+.env.local
+.env.production
+
+# Logs
+*.log
+logs/
+
+# Jest test coverage
+coverage/
+
+# TypeScript build info
+*.tsbuildinfo
+
+# System files
+.DS_Store
+Thumbs.db

@@ -1,0 +1,22 @@
+{
+  "cookies": [],
+  "origins": [
+    {
+      "origin": "http://localhost:3000",
+      "localStorage": [
+        {
+          "name": "mui-color-scheme-dark",
+          "value": "dark"
+        },
+        {
+          "name": "mui-color-scheme-light",
+          "value": "light"
+        },
+        {
+          "name": "mui-mode",
+          "value": "light"
+        }
+      ]
+    }
+  ]
+}

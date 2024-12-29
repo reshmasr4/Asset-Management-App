@@ -50,14 +50,14 @@ jobs:
       # Step 7: Start backend server
       - name: Start backend server
         working-directory: ./server
-        run: npm start &
+        run: npm run dev
         env:
           PORT: 5000
 
       # Step 8: Start frontend server
       - name: Start frontend server
         working-directory: ./client
-        run: npm start &
+        run: npm start
         env:
           REACT_APP_API_URL: http://localhost:5000
 

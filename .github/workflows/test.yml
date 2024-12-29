@@ -65,27 +65,15 @@ jobs:
         env:
           REACT_APP_API_URL: http://localhost:5000
 
-      # # Step 9: Wait for frontend to be ready
-      # - name: Wait for frontend to be ready
-      #   run: npx wait-on http://localhost:3000 --timeout 30000
 
-      # # Step 8: Build and Serve Frontend
-      # - name: Build client
-      #   working-directory: ./client
-      #   run: npm run build
-
-      # - name: Serve client
-      #   run: npx serve -s client/build &
-
-
-      # Step 10: Run Playwright tests for the client
+      # Step 9: Run Playwright tests for the client
       - name: Run client tests (Playwright)
         working-directory: ./client
         run: npx playwright test
         env:
           CI: true
 
-      # Step 11: Upload Jest coverage report
+      # Step 10: Upload Jest coverage report
       - name: Upload Jest coverage
         if: success()
         uses: actions/upload-artifact@v3
@@ -93,7 +81,7 @@ jobs:
           name: jest-coverage
           path: ./server/coverage
 
-      # Step 12: Upload Playwright artifacts
+      # Step 11: Upload Playwright artifacts
       - name: Upload Playwright artifacts
         if: failure() # Only upload on failure
         uses: actions/upload-artifact@v3

@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-
+test.describe.configure({ mode: 'serial' });
 test.describe('Asset Manager UI Tests', () => {
   test('should display asset list', async ({ page }) => {
     await page.goto('http://localhost:3000');

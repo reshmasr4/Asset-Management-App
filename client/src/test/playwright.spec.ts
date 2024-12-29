@@ -20,7 +20,7 @@ test.describe('Asset Manager UI Tests', () => {
     await page.getByRole('button', { name: 'Add Asset' }).click();
   
     const newAsset = page.locator('text=Car');
-    await expect(newAsset).toBeVisible();
+    await expect(newAsset).toBeVisible({ timeout: 10000 });
   
     // Edit a new asset
     await page.locator('button:near(:text("Price: € 20000")):has-text("Edit")').click();

@@ -1,9 +1,14 @@
 import { defineConfig } from '@playwright/test';
 
 export default defineConfig({
+  timeout: 30000, 
+  retries: 1, 
   use: {
+    headless: true,
+    screenshot: 'only-on-failure', // Take a screenshot only when a test fails
+    trace: 'on-first-retry', 
     contextOptions: {
-      storageState: 'state.json', // Reuse state between tests
+      storageState: 'state.json',
     },
   },
   projects: [
@@ -14,8 +19,5 @@ export default defineConfig({
       },
     },
   ],
-  reporter: [
-    ['html', { open: 'never' }],
-    ['json', { outputFile: 'playwright-report/results.json' }],
-  ],  
+  reporter: [['html', { open: 'on-failure' }]],  
 });

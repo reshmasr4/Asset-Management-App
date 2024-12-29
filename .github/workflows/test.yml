@@ -47,31 +47,31 @@ jobs:
         working-directory: ./client
         run: npx playwright install
 
-      # # Step 7: Start backend server
-      # - name: Start backend server
-      #   working-directory: ./server
-      #   run: npm start &
-      #   env:
-      #     PORT: 5000
+      # Step 7: Start backend server
+      - name: Start backend server
+        working-directory: ./server
+        run: npm start &
+        env:
+          PORT: 5000
 
-      # # Step 8: Start frontend server
-      # - name: Start frontend server
-      #   working-directory: ./client
-      #   run: npm start &
-      #   env:
-      #     REACT_APP_API_URL: http://localhost:5000
+      # Step 8: Start frontend server
+      - name: Start frontend server
+        working-directory: ./client
+        run: npm start &
+        env:
+          REACT_APP_API_URL: http://localhost:5000
 
       # # Step 9: Wait for frontend to be ready
       # - name: Wait for frontend to be ready
       #   run: npx wait-on http://localhost:3000 --timeout 30000
 
-      # Step 8: Build and Serve Frontend
-      - name: Build client
-        working-directory: ./client
-        run: npm run build
+      # # Step 8: Build and Serve Frontend
+      # - name: Build client
+      #   working-directory: ./client
+      #   run: npm run build
 
-      - name: Serve client
-        run: npx serve -s client/build &
+      # - name: Serve client
+      #   run: npx serve -s client/build &
 
 
       # Step 10: Run Playwright tests for the client
